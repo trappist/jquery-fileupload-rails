@@ -68,6 +68,7 @@
             var that = this,
                 dfd = $.Deferred().resolveWith(that, [data]),
                 chain = dfd.promise();
+            window.data = data;
             this._trigger('process', null, data);
             $.each(data.processQueue, function (i, settings) {
                 var func = function (data) {
@@ -133,7 +134,7 @@
                 if (this._processing === 0) {
                     this._trigger('processstart');
                 }
-                $.each(data.files, function (index) {
+                $.each(data.files, function (index,file) {
                     var opts = index ? $.extend({}, options) : options,
                         func = function () {
                             return that._processFile(opts);
